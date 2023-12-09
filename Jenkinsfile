@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     parameters {
-     choice(name: 'Browsersite', defaultValue: 'Chrome', choices: ['Chrome', 'Edge'], description: 'Code to run on browser')
+     choice(name: 'Browsersite', defaultValue: ['Chrome', 'Edge'], description: 'Code to run on browser')
     }
 
     tools {
@@ -20,11 +20,9 @@ pipeline {
         }     
         stage('Results') {
             steps {
-                script {
-                    // Pass Browsersite as an environment variable to Maven
-                    withEnv(["BROWSER=${Browsersite}"]) {
-                        bat "mvn clean package"
-                    }
+                // install the package
+                     bat  "mvn clean package -Dmaven.install.directory=target"
+                   
                 }
             }
         }
