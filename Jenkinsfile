@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     parameters {
-      choice(name: 'Browsersite', choices: ['Chrome', 'Edge'], description: 'Code to run on browser')
+        choice(name: 'Browsersite', choices: ['Chrome', 'Edge'], description: 'Code to run on browser')
     }
 
     tools {
@@ -12,26 +12,33 @@ pipeline {
     stages {
         stage('Build and test') {
             steps {
-                script{
-             bat "mvn clean test -DBrowser=${Browsersite}"                
+                script {
+                    // Use double quotes for variable interpolation
+                    bat "mvn clean test -DBrowser=${Browsersite}"
+                }
             }
         }
 
-        }     
         stage('Results') {
             steps {
-                // install the package
-                     bat  "mvn clean package -Dmaven.install.directory=target"
-                   
+                script {
+                    // Pass Browsersite as an environment variable to Maven
+                    withEnv(["BROWSER=${Browsersite}"]) {
+                        // Build the package
+                        bat "mvn clean package -Dmaven.test.skip=true"
+
+                        // Move the JAR file to the target folder
+                        bat "move target\\*.jar .\\target\\C:\Users\Narsing\.jenkins\workspace\new_instance\\"
+                    }
                 }
             }
-        
+        }
     }
 
     post {
         success {
             junit '**/target/surefire-reports/TEST-*.xml'
-            archiveArtifacts 'target/*.jar'
+            archiveArtifacts 'target/C:\Users\Narsing\.jenkins\workspace\new_instance/*.jar'
         }
     }
 }
