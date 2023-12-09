@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     parameters {
-     choice(name: 'Browsersite', defaultValue: ['Chrome', 'Edge'], description: 'Code to run on browser')
+      choice(name: 'Browsersite', choices: ['Chrome', 'Edge'], description: 'Code to run on browser')
     }
 
     tools {
