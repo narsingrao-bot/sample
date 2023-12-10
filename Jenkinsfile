@@ -27,7 +27,7 @@ pipeline {
                     withEnv(["BROWSER=${Browsersite}"]) {
                         // Build the package
                         bat "mvn clean package -Dmaven.test.skip=true"
-                        bat 'mvn surefire-report:report'  // Corrected this line to use 'surefire-report:report'
+                        
 
                         // Move the JAR file to the target folder
                         // bat 'move target\\*.jar .\\target\\C:\\Users\\Narsing\\.jenkins\\workspace\\new_instance\\'
