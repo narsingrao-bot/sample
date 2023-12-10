@@ -43,11 +43,6 @@
                 <version>3.2.2</version>
 				<configuration>
 
-				   <systemPropertyVariables>
-					
-					<browser>${Browser}</browser>
-					
-					</systemPropertyVariables>
 			
 					<suiteXmlFiles>
 						<suiteXmlFile>testng.xml</suiteXmlFile>
