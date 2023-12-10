@@ -39,7 +39,7 @@ pipeline {
 
     post {
         success {
-            junit '**target\\surefire-reports\\junitreports\\TEST-mavenforjenkins.UITest.xml'
+            junit '**target\\surefire-reports\\junitreports\\*.xml'
             archiveArtifacts allowEmptyArchive: true, artifacts: 'target/*.jar'
         }
     }
