@@ -28,7 +28,7 @@ pipeline {
                         bat "mvn clean package -Dmaven.test.skip=true"
 
                         // Move the JAR file to the target folder
-                        bat "move target\\*.jar .\\target\\C:\Users\Narsing\.jenkins\workspace\new_instance\\"
+                        bat 'move target\\*.jar .\\target\\C:\\Users\\Narsing\\.jenkins\\workspace\\new_instance\\'
                     }
                 }
             }
@@ -38,7 +38,7 @@ pipeline {
     post {
         success {
             junit '**/target/surefire-reports/TEST-*.xml'
-            archiveArtifacts 'target/C:\Users\Narsing\.jenkins\workspace\new_instance/*.jar'
+            archiveArtifacts 'target\\C:\\Users\\Narsing\\.jenkins\\workspace\\new_instance\\*.jar'
         }
     }
 }
