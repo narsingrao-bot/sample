@@ -37,7 +37,7 @@ pipeline {
 
     post {
         success {
-            junit allowEmptyResults: true, testResults: 'https://github.com/narsingrao-bot/sample/blob/main/target/surefire-reports/TEST-TestSuite.xml'
+             junit '**/target/surefire-reports/TEST-*.xml'
             archiveArtifacts 'target\\C:\\Users\\Narsing\\.jenkins\\workspace\\new_instance\\*.jar'
         }
     }
