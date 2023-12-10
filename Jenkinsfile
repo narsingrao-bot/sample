@@ -37,7 +37,7 @@ pipeline {
 
     post {
         success {
-             junit '**/target/surefire-reports/TEST-*.xml'
+             
             archiveArtifacts 'target\\C:\\Users\\Narsing\\.jenkins\\workspace\\new_instance\\*.jar'
         }
     }
