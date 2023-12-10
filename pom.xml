@@ -42,9 +42,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.2</version>
 				<configuration>
-				<testSourceDirectory>src/test/java</testSourceDirectory>
+			
 					<suiteXmlFiles>
-						<suiteXmlFile>testng.xml</suiteXmlFile>
+						<suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
 					</suiteXmlFiles>
 					
 					
