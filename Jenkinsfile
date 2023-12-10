@@ -14,6 +14,7 @@ pipeline {
             steps {
                 script {
                     // Use double quotes for variable interpolation
+                    echo "Selected Browser: ${params.Browsersite}"
                     bat "mvn clean test -DBrowser=${Browsersite}"
                 }
             }
@@ -26,9 +27,8 @@ pipeline {
                     withEnv(["BROWSER=${Browsersite}"]) {
                         // Build the package
                         bat "mvn clean package -Dmaven.test.skip=true"
-                        bat 'mvn site'
-                        bat 'mvn surefire-report:report'
-
+                        bat 'mvn surefire-plugin:report'
+                      
                         // Move the JAR file to the target folder
                        // bat 'move target\\*.jar .\\target\\C:\\Users\\Narsing\\.jenkins\\workspace\\new_instance\\'
                     }
@@ -40,7 +40,7 @@ pipeline {
     post {
         success {
              
-            archiveArtifacts allowEmptyArchive: true, artifacts: 'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\testrun_pipeline\\target\\*.jar'
+           archiveArtifacts allowEmptyArchive: true, artifacts: 'target/*.jar''
         }
     }
 }
