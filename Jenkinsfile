@@ -11,27 +11,29 @@ pipeline {
     
     stages {
         stage('Build and test') {
+            environment {
+                BROWSER = params.Browsersite
+            }
             steps {
                 script {
-                    // Use double quotes for variable interpolation
-                    echo "Selected Browser: ${params.Browsersite}"
-                    bat "mvn clean test -DBrowser=${Browsersite}"
+                    echo "Selected Browser: ${BROWSER}"
+                    // Pass BROWSER as an environment variable to Maven
+                    bat "mvn clean test -DBrowser=${BROWSER}"
                 }
             }
         }
 
         stage('Results') {
+            environment {
+                BROWSER = params.Browsersite
+            }
             steps {
                 script {
-                    // Pass Browsersite as an environment variable to Maven
-                    withEnv(["BROWSER=${Browsersite}"]) {
-                        // Build the package
-                        bat "mvn clean package -Dmaven.test.skip=true"
-                        bat 'mvn surefire-report:report'  // Corrected this line to use 'surefire-report:report'
-
-                        // Move the JAR file to the target folder
-                        // bat 'move target\\*.jar .\\target\\C:\\Users\\Narsing\\.jenkins\\workspace\\new_instance\\'
-                    }
+                    // Build the package
+                    bat "mvn clean package -Dmaven.test.skip=true"
+                    
+                    // Run Surefire report generation
+                    bat "mvn surefire-report:report"
                 }
             }
         }
@@ -39,7 +41,6 @@ pipeline {
 
     post {
         success {
-            junit '**target\\surefire-reports\\junitreports\\TEST-mavenforjenkins.UITest.xml'
             archiveArtifacts allowEmptyArchive: true, artifacts: 'target/*.jar'
         }
     }
