@@ -38,7 +38,7 @@ pipeline {
     post {
         success {
              
-            archiveArtifacts 'target\\C:\\Users\\Narsing\\.jenkins\\workspace\\new_instance\\*.jar'
+            archiveArtifacts allowEmptyArchive: true, artifacts: 'C:\\Users\\Narsing\\Desktop\\sample\\target\\*.jar'
         }
     }
 }
