@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Build and test') {
             environment {
-                BROWSER = params.Browsersite
+                BROWSER = "'${params.Browsersite}'"
             }
             steps {
                 script {
@@ -25,7 +25,7 @@ pipeline {
 
         stage('Results') {
             environment {
-                BROWSER = params.Browsersite
+                BROWSER = "'${params.Browsersite}'"
             }
             steps {
                 script {
