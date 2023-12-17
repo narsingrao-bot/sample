@@ -42,7 +42,7 @@ pipeline {
                          steps {
                                  script {
                                     withDockerRegistry(credentialsId: 'Docker') {
-                                    bat "docker build -t admin668/jenkins-doc:Latest", "-f Dockerfile ."
+                                    bat "docker build -t admin668/jenkins-doc:Latest -f Dockerfile ."
                                     bat "docker push admin668/jenkins-doc:Latest"
                                 
                      }
