@@ -7,6 +7,8 @@ pipeline {
 
     tools {
         maven "MAVEN_HOME"
+        jdk "Openjdk11"
+        dockertool"Docker"
     }
     
     stages {
@@ -29,13 +31,27 @@ pipeline {
                         bat "mvn clean package -Dmaven.test.skip=true"
                         bat 'mvn surefire-report:report'  // Corrected this line to use 'surefire-report:report'
 
-                        // Move the JAR file to the target folder
-                        // bat 'move target\\*.jar .\\target\\C:\\Users\\Narsing\\.jenkins\\workspace\\new_instance\\'
+                        
                     }
                 }
             }
         }
-    }
+
+                    stages {
+                        stage('Docker build & publish') {
+                         steps {
+                                 script {
+                                    withDockerRegistry(credentialsId: 'Docker') {
+                                    bat "docker build -t admin668/jenkins-doc:Latest", "-f Dockerfile ."
+                                    bat "docker push admin668/jenkins-doc:Latest"
+                                
+   
+                   }
+                                  
+                }
+            }
+        }
+             
 
     post {
         success {
@@ -43,4 +59,6 @@ pipeline {
             archiveArtifacts allowEmptyArchive: true, artifacts: 'target/*.jar'
         }
     }
+}
+}
 }
