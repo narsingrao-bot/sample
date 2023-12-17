@@ -7,8 +7,8 @@ pipeline {
 
     tools {
         maven "MAVEN_HOME"
-        jdk "Openjdk11"
-        dockertool"Docker"
+        jdk "OpenJDK11"
+        dockerTool"Docker"
     }
     
     stages {
@@ -37,7 +37,7 @@ pipeline {
             }
         }
 
-                    stages {
+                    
                         stage('Docker build & publish') {
                          steps {
                                  script {
@@ -45,12 +45,12 @@ pipeline {
                                     bat "docker build -t admin668/jenkins-doc:Latest", "-f Dockerfile ."
                                     bat "docker push admin668/jenkins-doc:Latest"
                                 
-   
+                     }
                    }
                                   
                 }
             }
-        }
+        
              
 
     post {
