@@ -5,7 +5,10 @@ FROM eclipse-temurin:11
 WORKDIR /app
 
 # Copy the JAR file into the container
-COPY mavenforjenkins-0.0.1-SNAPSHOT.jar .
+COPY /target/mavenforjenkins-0.0.1-SNAPSHOT.jar .
+
+# Expose the port your application will run on
+EXPOSE 8080
 
 # Specify the command to run your application
 CMD ["java", "-jar", "mavenforjenkins-0.0.1-SNAPSHOT.jar"]
