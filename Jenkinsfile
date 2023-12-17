@@ -7,7 +7,7 @@ pipeline {
 
     tools {
         maven "MAVEN_HOME"
-        jdk "OpenJDK11"
+        jdk "Openjdk11"
         dockerTool"Docker"
     }
     
