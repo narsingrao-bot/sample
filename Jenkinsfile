@@ -38,7 +38,7 @@ pipeline {
         stage('Docker build & publish') {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: 'Docker') {
+                    withDockerRegistry([credentialsId: 'Docker', url: 'https://index.docker.io/v1/']) {
                         bat "docker build -t admin668/jenkins-doc:Latest -f Dockerfile ."
                         bat "docker push admin668/jenkins-doc:Latest"
                     }
