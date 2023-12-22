@@ -34,24 +34,16 @@ pipeline {
                 }
             }
         }
-        stage('docker build'){
-            steps{
-                script{
-                    bat "docker build -t admin668/javaproject:Latest ."
-                }
-            }
-        }
-        stage('Docker login & publish') {
+      
+        stage('Docker build & publish') {
             steps {
                 script {
-
-                    withCredentials([string(credentialsId: 'Docker-hub', variable: 'DockerIntegration-hub')]){
-                  //  withDockerRegistry([credentialsId: 'Docker', url: 'https://index.docker.io/v2/']) 
-                    bat "docker login -u admin668 -p DockerIntegration-hub"
-                    bat "docker push admin668/javaproject:Latest ."
-                            
+                   // withDockerRegistry([credentialsId: 'Docker', url: 'https://index.docker.io/v2/']) 
+                        withCredentials([string(credentialsId: 'Docker-hub', variable: 'DockerIntegration-hub')]){
+                        bat "docker login -u admin668 -p DockerIntegration-hub https://index.docker.io/v2/" 
+                        bat "docker build -t admin668/jenkins-doc:Latest -f Dockerfile ."
+                        bat "docker push admin668/jenkins-doc:Latest"
                     }
-                    
                 }
             }
         }
