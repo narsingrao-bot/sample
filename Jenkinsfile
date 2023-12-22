@@ -34,7 +34,7 @@ pipeline {
                 }
             }
         }
-        stage(docker build){
+        stage('docker build'){
             steps{
                 script{
                     bat 'docker build -t admin668/javatech .'
