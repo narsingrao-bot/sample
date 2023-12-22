@@ -54,15 +54,16 @@ pipeline {
                     }
                 }
             }
-        }
+        
 
-        stage('Post Build') {
+        stage ('post build'){
             steps {
                 script {
                     junit '**target/surefire-reports/junitreports/TEST-mavenforjenkins.UITest.xml'
                     archiveArtifacts allowEmptyArchive: true, artifacts: 'target/*.jar'
                 }
             }
-        }
+        } 
+    }
 }
 
